@@ -1,6 +1,6 @@
-# 🛒 ShopHub - Modern E-Commerce Platform
+# � Sumanie Shop - Modern E-Commerce Platform
 
-A professional full-stack e-commerce application with advanced state management, built with React, Redux Toolkit, NestJS, and TypeORM. Features intelligent order caching, centralized notifications, and a modern blue/purple theme.
+A professional full-stack e-commerce application with advanced state management, built with React, Redux Toolkit, NestJS, and TypeORM. Features intelligent order caching, centralized notifications, product ratings for delivered orders, and a modern pink/fancy theme.
 
 ## 📋 Table of Contents
 
@@ -23,29 +23,32 @@ A professional full-stack e-commerce application with advanced state management,
 - ✅ Browse products in a responsive grid layout
 - ✅ Search products by title and description
 - ✅ View product details and ratings
-- ✅ Rate products (logged-in users only)
+- ✅ Rate products after order delivery (logged-in users only)
 - ✅ Add products to shopping cart
 - ✅ Shopping cart with persistent storage (localStorage)
 - ✅ Mini cart badge showing item count
 - ✅ Adjust product quantities in cart
 - ✅ Checkout and create orders
-- ✅ View order history with intelligent caching
+- ✅ View order history with product images and details
+- ✅ Rate products from delivered orders
 - ✅ Centralized notification system for user feedback
 
 ### Technical Features
 - ✅ RESTful API architecture
 - ✅ JWT authentication with access and refresh tokens
-- ✅ Advanced Redux state management (5 slices)
+- ✅ Advanced Redux state management (5 slices with semantic naming)
 - ✅ Order history caching (5-minute expiry)
 - ✅ Centralized notification management
 - ✅ Pagination for products
 - ✅ Product search functionality
 - ✅ Order captures product details at checkout time
-- ✅ Responsive Material-UI design
+- ✅ Rating system integrated with order delivery status
+- ✅ Responsive Material-UI design with custom pink theme
 - ✅ Redux Toolkit with RTK Query for API calls
 - ✅ TypeScript for complete type safety
 - ✅ Error handling with proper HTTP status codes
 - ✅ Auto token refresh on 401 errors
+- ✅ Product relations included in order responses
 
 ## 🛠️ Tech Stack
 
@@ -115,7 +118,7 @@ Create a \`.env\` file in the \`sc.frontend\` directory:
 
 \`\`\`env
 VITE_API_BASE_URL=http://localhost:3000/api/v1
-VITE_APP_NAME=SumanieShop
+VITE_APP_NAME=Sumanie Shop
 VITE_ENV=development
 \`\`\`
 
@@ -158,18 +161,20 @@ Open your browser and navigate to:
 
 ## 🎨 Design Theme
 
-ShopHub features a modern, professional blue/purple color scheme:
-- **Primary Color**: Material Blue (#1976d2)
-- **Secondary Color**: Purple (#9c27b0)
-- **Background**: Clean neutrals (#f5f5f5 / #121212)
-- **Accents**: Complementary blues and purples
+Sumanie Shop features a modern, fancy pink color scheme:
+- **Primary Color**: Pink (#E91E63)
+- **Secondary Color**: Orange (#FF9800)
+- **Background**: Light pink gradients (#FFF0F5 / #1a0a1a)
+- **Accents**: Gradient combinations with animations
+- **Font**: Poppins (Google Fonts)
 
 The design emphasizes:
-- Modern, clean aesthetics
-- Professional rounded corners (16px border radius)
-- Smooth transitions and animations
-- Accessible color contrasts
-- Material Design principles
+- Fancy, modern aesthetics with gradients
+- Smooth animations and floating effects
+- Rounded corners (16px border radius)
+- Box shadows and hover transforms
+- Custom pink scrollbar with gradients
+- Material Design principles with custom overrides
 
 ## 📁 Project Structure
 
@@ -209,7 +214,8 @@ sc.frontend/
 │   │   └── interceptorsSlice.ts
 │   ├── components/        # Reusable UI components
 │   │   ├── ProductCard/
-│   │   ├── OrderCard/
+│   │   ├── OrderCard/     # Rating functionality for delivered orders
+│   │   ├── RatingDialog/  # Modal for submitting ratings
 │   │   ├── Topbar/
 │   │   ├── SideNav/
 │   │   └── ...
@@ -219,19 +225,21 @@ sc.frontend/
 │   │   ├── orders/
 │   │   ├── cart/
 │   │   ├── checkout/
-│   │   └── login/
+│   │   └── login/         # Centered login form
 │   ├── store/             # Redux store setup
 │   │   ├── slices/        # Redux slices (5 slices)
-│   │   │   ├── authSlice.ts           # User authentication
-│   │   │   ├── cartSlice.ts           # Shopping cart
-│   │   │   ├── notificationSlice.ts   # Toast notifications
-│   │   │   └── orderHistorySlice.ts   # Order caching
+│   │   │   ├── userAuthSlice.ts           # User authentication (formerly authSlice)
+│   │   │   ├── shoppingCartSlice.ts       # Shopping cart (formerly cartSlice)
+│   │   │   ├── applicationSlice.ts        # Theme & UI (formerly appSlice)
+│   │   │   ├── notificationSlice.ts       # Toast notifications (NEW)
+│   │   │   └── orderHistorySlice.ts       # Order caching (NEW)
 │   │   ├── persistConfig.ts
 │   │   └── store.ts
 │   ├── models/            # TypeScript interfaces
 │   ├── routes/            # Route definitions
-│   ├── appSlice.ts        # Application theme & UI
-│   ├── App.tsx            # Root component
+│   ├── App.tsx            # Root component with pink theme
+│   ├── App.css            # Global styles with fancy animations
+│   ├── index.css          # Base styles with pink gradients
 │   └── main.tsx           # Application entry point
 ├── .env                   # Environment variables
 └── package.json
@@ -290,7 +298,7 @@ GET /api/v1/products?page=1&limit=10&search=keyboard
 | Variable | Description | Default |
 |----------|-------------|---------|
 | VITE_API_BASE_URL | Backend API URL | http://localhost:3000/api/v1 |
-| VITE_APP_NAME | Application name | SumanieShop |
+| VITE_APP_NAME | Application name | Sumanie Shop |
 | VITE_ENV | Environment | development |
 
 ## 💾 Database
@@ -371,13 +379,53 @@ Create different \`.env\` files for each environment:
 
 ## 📝 Key Implementation Details
 
-### Advanced State Management
-The application uses **5 Redux slices** for organized state management:
-1. **userAuth** - Authentication with persistence
-2. **shoppingCart** - Cart items with localStorage sync
-3. **application** - Theme and UI preferences
-4. **notifications** - Centralized toast notifications
-5. **orderHistory** - Intelligent order caching (5-min expiry)
+### Advanced State Management (5-Slice Architecture)
+The application uses **5 Redux slices** with semantic naming for organized state management:
+
+1. **userAuthSlice** (formerly authSlice)
+   - State: `userAuth` (was `authR`)
+   - Actions: `setLoginRedirect`, `updateAuthStatus`, `clearAuthState`
+   - Persisted to localStorage via redux-persist
+   - Properties: `isAuthenticated`, `requiresLogin`
+
+2. **shoppingCartSlice** (formerly cartSlice)
+   - State: `shoppingCart` (was `cart`)
+   - Properties: `items` (was `orderItems`), `drawerOpen` (was `isCartOpen`), `totalItems`
+   - Actions: `addProductToCart`, `removeProductFromCart`, `increaseQuantity`, `decreaseQuantity`, `emptyCart`
+   - localStorage key: `user-cart-data`
+
+3. **applicationSlice** (formerly appSlice)
+   - State: `application` (was `app`)
+   - Actions: `switchTheme`
+   - Properties: `themeMode`, `sidebarCollapsed`
+
+4. **notificationSlice** (NEW)
+   - Centralized toast notification management
+   - Actions: `showSuccess`, `showError`, `showWarning`, `showInfo`
+   - Auto-generated unique IDs and timestamps
+   - Notification history storage
+
+5. **orderHistorySlice** (NEW)
+   - Local order caching with 5-minute expiry
+   - Actions: `setOrders`, `selectOrder`, `clearOrderCache`, `checkCacheValidity`
+   - Selected order state for detail view
+
+### Rating System
+Product ratings follow e-commerce best practices:
+- **Location**: Rating functionality is exclusively on the Orders page
+- **Availability**: Only appears for orders with "Delivered" status
+- **UX Pattern**: Users can only rate products they've received
+- **Display**: Shows current product rating with star component (0.5 precision)
+- **Action Button**: "Rate Product" button opens RatingDialog modal
+- **Backend Integration**: Ratings update via RTK Query mutation (`useRateProductMutation`)
+- **Product Relations**: Orders include full product data (id, averageRating, etc.)
+
+### Login Page Design
+- **Layout**: Centered single-column layout (no left panel)
+- **Width**: 650px max width for optimal form display
+- **Theme**: Animated gradient background with pink tones
+- **Tabs**: Toggle between "Sign In" and "Create Account"
+- **Animation**: Fade-in effect on page load
 
 ### Cart Persistence
 The shopping cart uses Redux for state management and persists to **localStorage** with the key `user-cart-data`, ensuring the cart remains available even after closing the browser.
@@ -400,8 +448,19 @@ When an order is created, the system captures:
 - Product title
 - Product price
 - Product image URL
+- Product relation (for rating functionality)
 
-This ensures that order history remains accurate even if product details change in the future.
+This ensures that order history remains accurate even if product details change in the future. Orders also include full product relations to enable rating functionality and display current product ratings.
+
+### Order Status & Rating Flow
+1. User places order (status: "Pending")
+2. Order status updated to "Delivered" (manually or via admin script)
+3. "Rate Product" button appears in OrderCard
+4. User submits rating (1-5 stars with 0.5 precision)
+5. Product's averageRating updates automatically
+6. Rating persists and displays on product cards
+
+**Helper Script**: `complete-orders.js` - Marks all orders as "Delivered" for testing rating feature
 
 ### Authentication Flow
 1. User registers/logs in
@@ -413,9 +472,11 @@ This ensures that order history remains accurate even if product details change 
 ### API Interceptor
 Enhanced API layer with:
 - Automatic token refresh on 401 errors
-- Development mode logging
+- Development mode logging for auth flows
 - Custom headers (X-Requested-With)
 - Error handling with user-friendly messages
+- Renamed functions: `apiBaseQuery`, `apiQueryWithAuthRefresh`
+- Uses `setLoginRedirect` action instead of `redirectToLogin`
 
 ### Search Implementation
 Product search uses case-insensitive LIKE queries on title and description fields with debouncing (500ms) to optimize performance.
@@ -434,7 +495,33 @@ This project is licensed under the MIT License.
 
 ## 👥 Authors
 
-- Your Name - Initial work
+- Sumanie - Full-stack Developer
+
+## 🎯 Recent Improvements
+
+### Redux Architecture Overhaul
+- Restructured 3 existing slices with semantic naming conventions
+- Created 2 new slices (notificationSlice, orderHistorySlice)
+- Updated all imports across 10+ components
+- Enhanced state management with clear, descriptive names
+
+### UX Enhancements
+- Moved rating functionality from ProductCard to OrderCard
+- Ratings only available for delivered orders (industry standard)
+- Simplified login page with centered layout
+- Added product images to order cards with proper aspect ratios
+- Fixed DOM nesting warnings and accessibility issues
+
+### Backend Improvements
+- Added product relations to order queries
+- Created helper scripts for order status management
+- Enhanced order service with nested relation loading
+
+### Bug Fixes
+- Fixed null reference errors in rating system
+- Added defensive null checks for product data
+- Fixed event propagation issues in nested components
+- Corrected aria-hidden focus warnings with `disableRestoreFocus`
 
 ## 🙏 Acknowledgments
 
