@@ -2,8 +2,6 @@ import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import applicationReducer from '../appSlice';
 import userAuthReducer from '../store/slices/authSlice';
 import shoppingCartReducer from '../store/slices/cartSlice';
-import notificationReducer from '../store/slices/notificationSlice';
-import orderHistoryReducer from '../store/slices/orderHistorySlice';
 import { authApi } from '../api/authApi';
 import productsApi from '../api/productsApi';
 import ordersApi from '../api/ordersApi';
@@ -14,7 +12,6 @@ import persistConfig from './persistConfig';
 /**
  * Redux Store Configuration
  * Central state management with persistence and API integration
- * Enhanced with notification and order history management
  * @author ADS
  */
 
@@ -29,8 +26,6 @@ export const store = configureStore({
     
     // Feature-specific state
     shoppingCart: shoppingCartReducer,
-    notifications: notificationReducer,
-    orderHistory: orderHistoryReducer,
     
     // API slices
     [authApi.reducerPath]: authApi.reducer,

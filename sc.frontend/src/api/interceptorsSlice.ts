@@ -1,6 +1,7 @@
 import { BaseQueryFn, FetchArgs, fetchBaseQuery, FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { setLoginRedirect } from '../store/slices/authSlice';
 import { LoginResponse } from '../models/Login';
+import config from '../config';
 
 /**
  * API Interceptor Configuration
@@ -10,7 +11,7 @@ import { LoginResponse } from '../models/Login';
 
 // Base API configuration
 const apiBaseQuery = fetchBaseQuery({
-    baseUrl: 'http://localhost:3000/api/v1/',
+    baseUrl: `${config.baseUrl}/`,
     credentials: 'include',
     prepareHeaders(headers) {
         headers.set('Content-Type', 'application/json');
