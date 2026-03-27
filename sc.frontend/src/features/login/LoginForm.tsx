@@ -1,5 +1,5 @@
-import { Avatar, Button, Checkbox, FormControlLabel, Grid2, Link, Paper, TextField, Typography, Fade, Container, Box } from "@mui/material";
-import Logo from '../Logo/Logo';
+import { Button, Checkbox, FormControlLabel, Grid2, Link, Paper, TextField, Typography, Fade, Container, Box } from "@mui/material";
+import Logo from '../../shared/Logo/Logo';
 import { Formik, Field, Form } from 'formik';
 import * as Yup from 'yup';
 import { useLoginMutation } from "../../api/authApi";
@@ -28,18 +28,7 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
     },
 }));
 
-const StyledAvatar = styled(Avatar)(({ theme }) => ({
-    margin: theme.spacing(2),
-    background: 'linear-gradient(135deg, #E91E63 0%, #FF4081 100%)',
-    width: 80,
-    height: 80,
-    boxShadow: '0 8px 24px rgba(233, 30, 99, 0.4)',
-    transition: 'all 0.3s ease-in-out',
-    '&:hover': {
-        transform: 'scale(1.1) rotate(5deg)',
-        boxShadow: '0 12px 36px rgba(233, 30, 99, 0.6)',
-    },
-}));
+
 
 const StyledButton = styled(Button)(({ theme }) => ({
     margin: theme.spacing(3, 0, 2),

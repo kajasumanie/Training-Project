@@ -1,10 +1,10 @@
 import { Outlet } from "react-router-dom";
-import SideNav from "../components/SideNav/SideNav";
-import TopBar from "../components/Topbar/Topbar";
+import SideNav from "./SideNav";
+import TopBar from "./Topbar";
 import { Suspense, useState } from "react";
 import { styled, Box } from "@mui/material";
-import Footer from "../components/Footer/Footer";
-import Loader from "../components/Loader/Loader";
+import Footer from "../shared/Footer/Footer";
+import Loader from "../shared/Loader/Loader";
 
 const drawerWidth = 240;
 

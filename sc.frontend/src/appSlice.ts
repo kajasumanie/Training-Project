@@ -4,7 +4,7 @@ import { RootState } from './store/store';
 /**
  * Application Global State Management
  * Manages theme, UI preferences, and app-wide settings
- * @author Your Name
+ * @author Kaja
  */
 
 export type ThemeVariant = 'light' | 'dark';

@@ -3,7 +3,7 @@ import { Button, Card, CardContent, Divider, Grid, Typography, Box, Chip, useThe
 import { Order } from "../../models/orders";
 import { styled } from "@mui/material/styles";
 import { ShoppingBag, LocalShipping, Payment, Close, CalendarToday, Person, Star } from "@mui/icons-material";
-import RatingDialog from '../RatingDialog/RatingDialog';
+import RatingDialog from './RatingDialog';
 
 const StyledCard = styled(Card)(({ theme }) => ({
     marginBottom: '1rem',
@@ -174,9 +174,9 @@ const OrderCard: React.FC<OrderCardProps> = ({ order }) => {
                             ) : (
                                 <Grid item xs={12} sm={6} md={6} key={index}>
                                     <ProductBox>
-                                        {orderItem.productImage && (
+                                        {orderItem.productImageUrl && (
                                             <ProductImage
-                                                image={orderItem.productImage}
+                                                image={orderItem.productImageUrl}
                                                 title={orderItem.productTitle}
                                             />
                                         )}
@@ -207,14 +207,14 @@ const OrderCard: React.FC<OrderCardProps> = ({ order }) => {
                                             <Box sx={{ mt: 1, pt: 1, borderTop: `1px solid ${alpha(theme.palette.divider, 0.1)}` }}>
                                                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, mb: 0.5 }}>
                                                     <Rating
-                                                        value={orderItem.product?.averageRating || 0}
+                                                        value={orderItem.product?.rating || 0}
                                                         precision={0.1}
                                                         readOnly
                                                         size="small"
                                                         sx={{ fontSize: 14 }}
                                                     />
                                                     <Typography variant="caption" color="text.secondary">
-                                                        {(orderItem.product?.averageRating || 0).toFixed(1)}
+                                                        {(orderItem.product?.rating || 0).toFixed(1)}
                                                     </Typography>
                                                 </Box>
                                                 <Button
@@ -225,7 +225,7 @@ const OrderCard: React.FC<OrderCardProps> = ({ order }) => {
                                                         handleRateProduct(
                                                             orderItem.product!.id.toString(),
                                                             orderItem.productTitle,
-                                                            orderItem.product?.averageRating || 0
+                                                            orderItem.product?.rating || 0
                                                         );
                                                     }}
                                                     sx={{
@@ -372,9 +372,9 @@ const OrderCard: React.FC<OrderCardProps> = ({ order }) => {
                         {order.orderItems.map((orderItem) => (
                             <Grid item xs={12} md={6} key={orderItem.id}>
                                 <DialogProductBox>
-                                    {orderItem.productImage && (
+                                    {orderItem.productImageUrl && (
                                         <DialogProductImage
-                                            image={orderItem.productImage}
+                                            image={orderItem.productImageUrl}
                                             title={orderItem.productTitle}
                                         />
                                     )}
@@ -404,13 +404,13 @@ const OrderCard: React.FC<OrderCardProps> = ({ order }) => {
                                         <Box sx={{ mt: 2, pt: 2, borderTop: `1px solid ${alpha(theme.palette.divider, 0.1)}` }}>
                                             <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, mb: 1 }}>
                                                 <Rating
-                                                    value={orderItem.product?.averageRating || 0}
+                                                    value={orderItem.product?.rating || 0}
                                                     precision={0.1}
                                                     readOnly
                                                     size="small"
                                                 />
                                                 <Typography variant="body2" color="text.secondary">
-                                                    {(orderItem.product?.averageRating || 0).toFixed(1)}
+                                                    {(orderItem.product?.rating || 0).toFixed(1)}
                                                 </Typography>
                                             </Box>
                                             <Button
@@ -423,7 +423,7 @@ const OrderCard: React.FC<OrderCardProps> = ({ order }) => {
                                                     handleRateProduct(
                                                         orderItem.product!.id.toString(),
                                                         orderItem.productTitle,
-                                                        orderItem.product?.averageRating || 0
+                                                        orderItem.product?.rating || 0
                                                     );
                                                 }}
                                                 sx={{

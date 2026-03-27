@@ -1,7 +1,7 @@
 import { Box, Grid2, Tab, Tabs, Fade, keyframes } from "@mui/material";
-import LoginForm from "../../components/LoginForm/LoginForm";
+import LoginForm from "./LoginForm";
 import { useState } from "react";
-import RegisterForm from "../../components/RegisterForm/RegisterForm";
+import RegisterForm from "./RegisterForm";
 import { styled } from '@mui/material/styles';
 
 const gradientAnimation = keyframes`
@@ -10,7 +10,7 @@ const gradientAnimation = keyframes`
     100% { background-position: 0% 50%; }
 `;
 
-const StyledGrid = styled(Grid2)(({ theme }) => ({
+const StyledGrid = styled(Grid2)(() => ({
     minHeight: '100vh',
     position: 'relative',
     overflow: 'hidden',

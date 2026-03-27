@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Container, Grid, Typography, Skeleton, useTheme, alpha } from '@mui/material';
 import { useGetOrdersQuery } from '../../api/ordersApi';
-import OrderCard from '../../components/OrderCard/OrderCard';
+import OrderCard from './OrderCard';
 import { styled } from '@mui/material/styles';
 import { ShoppingBag } from '@mui/icons-material';
 

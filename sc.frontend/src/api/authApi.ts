@@ -1,6 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { baseQueryWithReauth } from './interceptorsSlice';
-import { LoginPayload, LoginResponse } from '../models/login';
+import { LoginPayload, LoginResponse } from '../models/Login';
 
 const login = (payload: LoginPayload) => ({
     url: 'login',

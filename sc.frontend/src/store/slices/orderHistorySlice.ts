@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 /**
  * Order History State Management
  * Caches order data locally for better performance
- * @author Your Name
+ * @author Kaja
  */
 
 export interface OrderItem {
@@ -112,7 +112,7 @@ const orderHistorySlice = createSlice({
         },
         
         // Filter orders by status
-        filterOrdersByStatus: (state, action: PayloadAction<string>) => {
+        filterOrdersByStatus: (_state, _action: PayloadAction<string>) => {
             // This doesn't modify state, used for selectors
             // Actual filtering happens in component/selector
         },

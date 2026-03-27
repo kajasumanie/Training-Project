@@ -4,7 +4,7 @@ import { Product } from "../../models/products";
 /**
  * Shopping Cart State Management
  * Manages cart items, quantities, and persistence
- * @author Your Name
+ * @author Kaja
  */
 
 // Cart item interface with product and quantity

@@ -1,14 +1,14 @@
 import { Badge, Button, IconButton, styled, Toolbar, Typography, Box } from "@mui/material";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import MenuIcon from '@mui/icons-material/Menu';
-import { useAppDispatch } from "../../store/hooks";
+import { useAppDispatch } from "../store/hooks";
 import { useNavigate } from "react-router-dom";
 import { ShoppingCart } from "@mui/icons-material";
 import { useSelector } from "react-redux";
-import { RootState } from "../../store/store";
-import { useLogOutMutation } from "../../api/authApi";
-import { updateAuthStatus } from "../../store/slices/authSlice";
-import CartPopover from "../../features/cart/CartPopover";
+import { RootState } from "../store/store";
+import { useLogOutMutation } from "../api/authApi";
+import { updateAuthStatus } from "../store/slices/authSlice";
+import CartPopover from "../features/cart/CartPopover";
 import { useState } from "react";
 
 const drawerWidth = 240;

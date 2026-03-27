@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 /**
  * Authentication State Management
  * Handles user authentication status and session management
- * @author Your Name
+ * @author Kaja
  */
 
 interface AuthenticationState {

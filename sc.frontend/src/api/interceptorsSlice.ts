@@ -1,11 +1,11 @@
 import { BaseQueryFn, FetchArgs, fetchBaseQuery, FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { setLoginRedirect } from '../store/slices/authSlice';
-import { LoginResponse } from '../models/login';
+import { LoginResponse } from '../models/Login';
 
 /**
  * API Interceptor Configuration
  * Handles authentication, token refresh, and error responses
- * @author Your Name
+ * @author Kaja
  */
 
 // Base API configuration

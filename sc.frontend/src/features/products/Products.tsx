@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Box, Container, Grid2, Typography, Pagination, Skeleton, useTheme, alpha, TextField, InputAdornment } from '@mui/material';
 import { useGetProductsQuery } from '../../api/productsApi';
-import ProductCard from '../../components/ProductCard/ProductCard';
+import ProductCard from '../../shared/ProductCard/ProductCard';
 import { styled } from '@mui/material/styles';
 import { Category, Search } from '@mui/icons-material';
 

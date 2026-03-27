@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 /**
  * Notification State Management
  * Handles toast messages, alerts, and user notifications
- * @author Your Name
+ * @author Kaja
  */
 
 export type NotificationType = 'success' | 'error' | 'warning' | 'info';

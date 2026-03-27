@@ -1,7 +1,7 @@
 import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { selectCurrentTheme } from "./appSlice";
-import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
+import ErrorBoundary from "./shared/ErrorBoundary/ErrorBoundary";
 import AppRoutes from "./routes/routes";
 import { useAppSelector } from "./store/hooks";
 import "./App.css";
@@ -15,7 +15,7 @@ import "react-toastify/dist/ReactToastify.css";
 /**
  * Main Application Component
  * Handles theming, routing, and authentication redirects
- * @author Your Name
+ * @author Kaja
  */
 
 function App() {

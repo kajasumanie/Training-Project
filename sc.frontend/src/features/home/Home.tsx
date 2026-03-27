@@ -3,7 +3,7 @@ import { Container, Grid, Typography, Button, Box, Paper, Grid2, Fade, CircularP
 import { useNavigate } from 'react-router-dom';
 import { ShoppingCart, ArrowForward, LocalShipping, Security, Support } from '@mui/icons-material';
 import { useGetTopRatedProductsQuery } from '../../api/productsApi';
-import ProductCard from '../../components/ProductCard/ProductCard';
+import ProductCard from '../../shared/ProductCard/ProductCard';
 import { styled } from '@mui/material/styles';
 
 const HeroSection = styled(Box)(({ theme }) => ({

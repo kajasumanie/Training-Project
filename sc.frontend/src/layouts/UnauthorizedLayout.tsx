@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { Outlet } from "react-router-dom";
-import Footer from "../components/Footer/Footer";
-import Loader from "../components/Loader/Loader";
+import Footer from "../shared/Footer/Footer";
+import Loader from "../shared/Loader/Loader";
 
 const UnauthorizedLayout = () => {
   return (

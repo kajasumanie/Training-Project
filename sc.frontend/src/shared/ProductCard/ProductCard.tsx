@@ -5,7 +5,7 @@ import { Product } from "../../models/products";
 import { ShoppingCart, Favorite, FavoriteBorder } from "@mui/icons-material";
 import { useState } from "react";
 import { styled } from '@mui/material/styles';
-import ProductDetailDialog from '../ProductDetailDialog/ProductDetailDialog';
+import ProductDetailDialog from '../../features/products/ProductDetailDialog';
 
 interface ProductCardProps {
     product: Product;

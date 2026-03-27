@@ -1,5 +1,4 @@
 import {
-  ButtonBase,
   CSSObject,
   Divider,
   IconButton,
@@ -21,7 +20,7 @@ import {
 } from "@mui/icons-material";
 import MuiDrawer from "@mui/material/Drawer/Drawer";
 import { useNavigate } from "react-router-dom";
-import Logo from "../Logo/Logo";
+import Logo from "../shared/Logo/Logo";
 import { Box } from "@mui/material";
 
 const drawerWidth = 240;
@@ -70,39 +69,6 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
 }));
-
-const ImageButton = styled(ButtonBase)(({ theme }) => ({
-  position: 'relative',
-  width: '100%',
-  height: 64,
-  [theme.breakpoints.down('sm')]: {
-    width: '100% !important', // Overrides inline-style
-    height: 100,
-  },
-  '&:hover, &.Mui-focusVisible': {
-    zIndex: 1,
-    '& .MuiImageBackdrop-root': {
-      opacity: 0.15,
-    },
-    '& .MuiImageMarked-root': {
-      opacity: 0,
-    },
-    '& .MuiTypography-root': {
-      border: '4px solid currentColor',
-    },
-  },
-}));
-
-const ImageSrc = styled('span')({
-  position: 'absolute',
-  left: 0,
-  right: 0,
-  top: 0,
-  bottom: 0,
-  backgroundSize: 'contain',
-  backgroundPosition: 'center center',
-  backgroundRepeat: 'no-repeat',
-});
 
 const SideNav = ({ open, onDrawerClose }: any) => {
   const theme = useTheme();
