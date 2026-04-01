@@ -1,6 +1,6 @@
 import { Button, Card, CardContent, CardMedia, Grid2, Typography, Rating, Box, IconButton, Fade } from "@mui/material";
 import { useDispatch } from "react-redux";
-import { addProductToCart } from "../../store/slices/cartSlice";
+import { addProductToCart } from "../../features/cart/cartSlice";
 import { Product } from "../../models/products";
 import { ShoppingCart, Favorite, FavoriteBorder } from "@mui/icons-material";
 import { useState } from "react";

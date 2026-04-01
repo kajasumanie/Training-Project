@@ -24,7 +24,7 @@ import {
     removeProductFromCart,
     increaseQuantity,
     decreaseQuantity
-} from '../../store/slices/cartSlice';
+} from './cartSlice';
 import { useNavigate } from 'react-router-dom';
 
 interface CartPopoverProps {

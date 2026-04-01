@@ -1,12 +1,13 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import applicationReducer from '../appSlice';
 import userAuthReducer from '../store/slices/authSlice';
-import shoppingCartReducer from '../store/slices/cartSlice';
+import shoppingCartReducer from '../features/cart/cartSlice';
 import { authApi } from '../api/authApi';
 import productsApi from '../api/productsApi';
 import ordersApi from '../api/ordersApi';
 import userApi from '../api/userApi';
 import { persistReducer, persistStore } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 import persistConfig from './persistConfig';
 
 /**
@@ -15,8 +16,9 @@ import persistConfig from './persistConfig';
  * @author ADS
  */
 
-// Wrap auth reducer with persistence
+// Wrap auth and cart reducers with persistence
 const persistedUserAuthReducer = persistReducer(persistConfig, userAuthReducer);
+const persistedCartReducer = persistReducer({ key: 'cart', storage }, shoppingCartReducer);
 
 export const store = configureStore({
   reducer: {
@@ -25,7 +27,7 @@ export const store = configureStore({
     userAuth: persistedUserAuthReducer,
     
     // Feature-specific state
-    shoppingCart: shoppingCartReducer,
+    shoppingCart: persistedCartReducer,
     
     // API slices
     [authApi.reducerPath]: authApi.reducer,

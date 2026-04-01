@@ -13,7 +13,7 @@ import {
 } from '@mui/material';
 import { Close, ShoppingCart, Favorite, FavoriteBorder } from '@mui/icons-material';
 import { useDispatch } from 'react-redux';
-import { addProductToCart } from '../../store/slices/cartSlice';
+import { addProductToCart } from '../cart/cartSlice';
 import { Product } from '../../models/products';
 import { useState } from 'react';
 

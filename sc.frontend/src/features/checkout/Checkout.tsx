@@ -24,7 +24,7 @@ import {
 } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store/store';
-import { emptyCart } from '../../store/slices/cartSlice';
+import { emptyCart } from '../cart/cartSlice';
 import { useNavigate } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import { Visibility, VisibilityOff, ShoppingCart, LocalShipping, Payment } from '@mui/icons-material';
