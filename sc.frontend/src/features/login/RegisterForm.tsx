@@ -1,10 +1,11 @@
+import React from 'react';
 import { Button, Checkbox, FormControlLabel, Grid2, Link, Paper, TextField, Typography, Fade, Container, Box } from "@mui/material";
 import Logo from '../../shared/Logo/Logo';
 import * as Yup from 'yup';
 import { Field, Form, Formik } from "formik";
 import { useRegisterMutation } from "../../api/authApi";
-import { useNavigate } from "react-router-dom";
 import { styled } from '@mui/material/styles';
+import Notification from '../../shared/Notification/Notification';
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
     padding: theme.spacing(4),
@@ -33,9 +34,11 @@ const StyledButton = styled(Button)(({ theme }) => ({
     },
 }));
 
-const RegisterForm: React.FC<any> = () => {
+const RegisterForm: React.FC<{ setTabValue: (v: number) => void }> = ({ setTabValue }) => {
     const [register] = useRegisterMutation();
-    const navigate = useNavigate();
+    const [notification, setNotification] = React.useState<{ open: boolean; message: string; severity: 'success' | 'error' }>(
+        { open: false, message: '', severity: 'success' }
+    );
 
     const validationSchema = Yup.object({
         email: Yup.string()
@@ -83,10 +86,14 @@ const RegisterForm: React.FC<any> = () => {
                         }}
                         validationSchema={validationSchema}
                         onSubmit={(values) => {
-                            register(values).unwrap().then(res => {
-                                sessionStorage.setItem('access_token', JSON.stringify(res.accessToken));
-                                navigate('/');
-                            }).catch(err => console.log(err));
+                            setNotification({ open: false, message: '', severity: 'success' });
+                            register(values).unwrap().then(() => {
+                                setNotification({ open: true, message: 'Account created successfully! Please sign in.', severity: 'success' });
+                                setTimeout(() => setTabValue(0), 2000);
+                            }).catch(err => {
+                                const message = err?.data?.message || 'Registration failed. Please try again.';
+                                setNotification({ open: true, message, severity: 'error' });
+                            });
                         }}
                     >
                         {({ touched, errors }) => (
@@ -200,8 +207,9 @@ const RegisterForm: React.FC<any> = () => {
                                         Already have an account?{' '}
                                         <Link 
                                             component="button"
+                                            type="button"
                                             variant="body2"
-                                            onClick={() => navigate('/login')}
+                                            onClick={() => setTabValue(0)}
                                             sx={{ 
                                                 color: 'primary.main',
                                                 textDecoration: 'none',
@@ -220,6 +228,12 @@ const RegisterForm: React.FC<any> = () => {
                     </Formik>
                 </StyledPaper>
             </Fade>
+            <Notification
+                open={notification.open}
+                message={notification.message}
+                severity={notification.severity}
+                onClose={() => setNotification(prev => ({ ...prev, open: false }))}
+            />
         </Container>
     );
 };

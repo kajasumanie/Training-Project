@@ -13,8 +13,10 @@ export class AuthService {
   constructor(@InjectRepository(User) private usersRepository: Repository<User>) { }
 
   async register(user: RegisterUserDto) {
-    const existingUser = await this.usersRepository.findOne({ where: { email: user.email } });
-    if (existingUser) throw new HttpException('Email already exists', HttpStatus.CONFLICT);
+    const existingEmail = await this.usersRepository.findOne({ where: { email: user.email } });
+    if (existingEmail) throw new HttpException('Email already exists', HttpStatus.CONFLICT);
+    const existingMobile = await this.usersRepository.findOne({ where: { mobile: user.mobile } });
+    if (existingMobile) throw new HttpException('Mobile number already registered', HttpStatus.CONFLICT);
     const hashedPassword = await bcrypt.hash(user.password, 10);
     const newUser = this.usersRepository.create({
       email: user.email,

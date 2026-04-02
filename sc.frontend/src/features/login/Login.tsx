@@ -75,7 +75,7 @@ const Login: React.FC<any> = () => {
                                 <Tab label="Create Account" />
                             </StyledTabs>
                             {value === 0 && <LoginForm setTabValue={setValue} />}
-                            {value === 1 && <RegisterForm />}
+                            {value === 1 && <RegisterForm setTabValue={setValue} />}
                         </Box>
                     </Fade>
                 </RightPanel>
