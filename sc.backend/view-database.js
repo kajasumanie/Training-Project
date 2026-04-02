@@ -1,7 +1,6 @@
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('./database.sqlite');
 
-console.log('\n=== Sumanie's Shop DATABASE ===\n');
 
 // View all users
 db.all('SELECT * FROM users', [], (err, users) => {

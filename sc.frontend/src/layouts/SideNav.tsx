@@ -22,6 +22,8 @@ import MuiDrawer from "@mui/material/Drawer/Drawer";
 import { useNavigate } from "react-router-dom";
 import Logo from "../shared/Logo/Logo";
 import { Box } from "@mui/material";
+import { useSelector } from "react-redux";
+import { RootState } from "../store/store";
 
 const drawerWidth = 240;
 
@@ -70,9 +72,14 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   ...theme.mixins.toolbar,
 }));
 
+/**
+ * SideNav Component - Navigation Sidebar
+ * Shows orders menu only when user is authenticated
+ */
 const SideNav = ({ open, onDrawerClose }: any) => {
   const theme = useTheme();
   const navigate = useNavigate();
+  const isAuthenticated = useSelector((state: RootState) => state.userAuth.userAuthenticated);
 
   const handleDrawerClose = () => {
     onDrawerClose(false);
@@ -121,19 +128,22 @@ const SideNav = ({ open, onDrawerClose }: any) => {
             <ListItemText primary={"Products"} sx={{ opacity: open ? 1 : 0 }} />
           </ListItemButton>
         </ListItem>
-        <ListItem key={'Orders'} disablePadding sx={{ display: 'block' }}>
-          <ListItemButton
-            sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5 }}
-            onClick={() => {
-              navigate(`/orders`);
-            }}
-          >
-            <ListItemIcon sx={{ minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center' }}>
-              <CalculateOutlined />
-            </ListItemIcon>
-            <ListItemText primary={"Orders"} sx={{ opacity: open ? 1 : 0 }} />
-          </ListItemButton>
-        </ListItem>
+        {/* Only show Orders menu when user is authenticated */}
+        {isAuthenticated && (
+          <ListItem key={'Orders'} disablePadding sx={{ display: 'block' }}>
+            <ListItemButton
+              sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5 }}
+              onClick={() => {
+                navigate(`/orders`);
+              }}
+            >
+              <ListItemIcon sx={{ minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center' }}>
+                <CalculateOutlined />
+              </ListItemIcon>
+              <ListItemText primary={"Orders"} sx={{ opacity: open ? 1 : 0 }} />
+            </ListItemButton>
+          </ListItem>
+        )}
       </List>
     </Drawer>
   );

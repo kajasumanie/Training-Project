@@ -8,8 +8,12 @@ import { Rating } from 'src/rating/entities/rating.entity';
 import { JwtAuthGuard } from 'src/auth/utils/JwtAuthGuard';
 import { PaginationDto } from './dto/pagination.dto';
 
+/**
+ * Product Controller
+ * Public: GET endpoints for browsing products
+ * Protected: POST, PATCH, DELETE for managing products and ratings
+ */
 @Controller('api/v1/products')
-@UseGuards(JwtAuthGuard)
 export class ProductController {
 
   constructor(
@@ -19,6 +23,7 @@ export class ProductController {
   ) { }
 
   @Post()
+  @UseGuards(JwtAuthGuard)
   create(@Body() createProductDto: CreateProductDto) {
     return this.productService.create(createProductDto);
   }
@@ -38,6 +43,7 @@ export class ProductController {
   }
 
   @Post(':id/rate/:rate')
+  @UseGuards(JwtAuthGuard)
   async rateProduct(@Param('id') id: string, @Param('rate') rate: string) {
 
     const product = await this.productService.findOne(+id);
@@ -63,11 +69,13 @@ export class ProductController {
   }
 
   @Patch(':id')
+  @UseGuards(JwtAuthGuard)
   update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto) {
     return this.productService.update(+id, updateProductDto);
   }
 
   @Delete(':id')
+  @UseGuards(JwtAuthGuard)
   remove(@Param('id') id: string) {
     return this.productService.remove(+id);
   }

@@ -10,21 +10,28 @@ const Orders = lazy(() => import("../features/orders/Orders"));
 const Login = lazy(() => import("../features/login/Login"));
 const Checkout = lazy(() => import("../features/checkout/Checkout"));
 
+/**
+ * Application Routes
+ * Public routes: Home, Products (browsing without login)
+ * Protected routes: Orders (user-specific), Checkout (requires login)
+ */
 export default function AppRoutes() {
   return useRoutes([
     {
-      element: <ProtectedRoute element={<DashboardLayout />} />,
+      element: <DashboardLayout />,
       children: [
+        // Public routes - no login required
         { path: "/", element: <Home /> },
         { path: "products", element: <Products /> },
-        { path: "orders", element: <Orders /> },
-        { path: "checkout", element: <Checkout /> },
+        
+        // Protected routes - login required
+        { path: "orders", element: <ProtectedRoute element={<Orders />} /> },
+        { path: "checkout", element: <ProtectedRoute element={<Checkout />} /> },
       ],
     },
     {
       element: <UnauthorizedLayout />,
       children: [
-        { path: "home", element: <Home /> },
         { path: "login", element: <Login /> }
       ],
     },

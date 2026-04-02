@@ -41,6 +41,7 @@ const Topbar = ({ open, onDrawerOpen }: any) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const orderItemsCount = useSelector((state: RootState) => state.shoppingCart.items.length);
+  const isAuthenticated = useSelector((state: RootState) => state.userAuth.userAuthenticated);
   const [logOut] = useLogOutMutation();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
@@ -53,6 +54,10 @@ const Topbar = ({ open, onDrawerOpen }: any) => {
     dispatch(updateAuthStatus(false));
     logOut();
     sessionStorage.clear();
+  };
+
+  const handleLogin = () => {
+    navigate('/login');
   };
 
   const handleCartClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -103,7 +108,15 @@ const Topbar = ({ open, onDrawerOpen }: any) => {
               <ShoppingCart />
             </Badge>
           </IconButton>
-          <Button color="primary" variant="outlined" style={{ color: 'white' }} onClick={handleLogout} >Logout</Button>
+          {isAuthenticated ? (
+            <Button color="primary" variant="outlined" style={{ color: 'white' }} onClick={handleLogout}>
+              Logout
+            </Button>
+          ) : (
+            <Button color="primary" variant="contained" onClick={handleLogin}>
+              Login
+            </Button>
+          )}
         </div>
       </Toolbar>
       <CartPopover 

@@ -13,7 +13,7 @@ import persistConfig from './persistConfig';
 /**
  * Redux Store Configuration
  * Central state management with persistence and API integration
- * @author ADS
+ * @author KAJA
  */
 
 // Wrap auth and cart reducers with persistence

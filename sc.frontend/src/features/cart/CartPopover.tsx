@@ -36,6 +36,7 @@ const CartPopover: React.FC<CartPopoverProps> = ({ anchorEl, onClose }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const cartItems = useSelector((state: RootState) => state.shoppingCart.items);
+    const isAuthenticated = useSelector((state: RootState) => state.userAuth.userAuthenticated);
     const [showSnackbar, setShowSnackbar] = useState(false);
     const [snackbarMessage, setSnackbarMessage] = useState('');
 
@@ -59,6 +60,18 @@ const CartPopover: React.FC<CartPopoverProps> = ({ anchorEl, onClose }) => {
         }
 
         onClose();
+        
+        // Check if user is authenticated before checkout
+        if (!isAuthenticated) {
+            setSnackbarMessage('Please login to proceed with checkout');
+            setShowSnackbar(true);
+            // Navigate to login, user can login and return to checkout
+            setTimeout(() => {
+                navigate('/login');
+            }, 1500);
+            return;
+        }
+        
         navigate('/checkout');
     };
 
